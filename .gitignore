@@ -1,0 +1,18 @@
+# Node / TS
+node_modules/
+dist/
+build/
+coverage/
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Common
+.env*
+.DS_Store
+Thumbs.db
+.tmp/
+.cache/
