@@ -1,6 +1,7 @@
 // research_orchestrator.ts — clean rebuild (generic, organism-scoped)
 import { z } from 'zod';
 import { NormalizeEntitiesInput, normalizeEntities } from './stage2_normalization.js';
+import { makeEncodeQuery, fetchEncode, normalizeEncode, encodeRowMatchesOrganism } from "./src/integrations/encode_helpers"; // ENCODE helpers
 
 type AnyObj = Record<string, any>;
 
@@ -120,6 +121,7 @@ async function openalexWorks(q: string, perPage = 50): Promise<any[]> {
   } catch { return []; }
 }
 
+
 // ---------- Metrics summarizer (local) ----------
 function summarizeNormalization(normalized: AnyObj) {
   const C = (normalized as any).compounds || [];
@@ -140,7 +142,6 @@ function summarizeNormalization(normalized: AnyObj) {
   // Targets
   const t_uniprot = T.filter((t:any)=> t.uniprot || t.uniprot_id || t.primaryAccession).length;
   const t_chembl  = T.filter((t:any)=> t.target_chembl_id || t.chembl_target_id).length;
-
   // Assays
   const a_pchembl = A.filter((a:any)=> a.pchembl_value != null && a.pchembl_value !== '').length;
   const a_std_num = A.filter((a:any)=> {
@@ -298,6 +299,7 @@ export async function researchRun(p_in: ResearchRunT) {
   // -------- Return with stamp --------
   const run_id = `${new Date().toISOString().replace(/[:.]/g, '-')}-${Math.random().toString(36).slice(2, 8)}`;
   const spec_echo = JSON.parse(JSON.stringify(p));
+
 
   return {
     ok: true,
