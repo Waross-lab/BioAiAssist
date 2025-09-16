@@ -1,12 +1,12 @@
 BioAiAssist
 
-Goal: a single search bar for biology/chemistry/genetics that fans a question out to multiple bioinformatics tools, normalizes the results, and returns a structured, citable answer.
+Goal: a single search bar for biology/chemistry/genetics that fans a question out to multiple bioinformatics tools, collects best fit data based on query, analyzes the results, and returns structured, citable results.
 
 This repo currently provides a working Planner → Runner → Normalizer pipeline in TypeScript (ESM), plus a smoke test that runs out-of-the-box with mock tools. You can optionally flip it to real MCP tools by wiring a tiny bridge to your existing bio-mcp.ts connections.
 
 
 
-✨ What works today
+   ✨ What works today
 
 Open-ended question in → multi-tool plan out
 
@@ -28,7 +28,7 @@ In the default mock run you’ll see a JSON bundle with query, hits, records, an
 
 
 
-🧩 Architecture (PRNR)
+   🧩 Architecture (PRNR)
 
 Question
    │
@@ -51,7 +51,7 @@ Normalizer/Reporter (src/openqa/normalize_and_report.ts)
 Flattens results and emits a compact summary (drop-in mappers live here).
 
 
-📁 Repo layout (key files)
+   📁 Repo layout (key files)
 
 root/
   smoke_openqa.mjs                 # end-to-end smoke (mock tools by default)
@@ -68,7 +68,7 @@ root/
     mcp_bridge.ts                  # optional: wraps your bio-mcp exports when you connect real tools
 
 
-    🚀 Quickstart (Windows / PowerShell shown)
+   🚀 Quickstart (Windows / PowerShell shown)
     
 Prereqs: Node 18+ (Node 20/22 tested), npm.
 
