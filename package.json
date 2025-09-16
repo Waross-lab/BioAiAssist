@@ -1,8 +1,9 @@
 {
   "name": "mcp-bio",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json",
     "start": "node dist/bio-mcp.js"
   },
   "keywords": [],
