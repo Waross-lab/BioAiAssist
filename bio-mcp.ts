@@ -22,7 +22,7 @@ import cors from 'cors';
 import { z } from 'zod';
 import { ResearchRun, researchRun } from './research_orchestrator.js';
 import { NormalizeEntitiesInput, normalizeEntities } from './stage2_normalization.js';
-
+import { searchTrialsCtgov } from "./src/openqa/clients/ctgov_client.js";
 
 // Optional: polyfill fetch on Node < 18 using undici
 try {
@@ -1107,6 +1107,28 @@ tools.push({
       }
     } catch {}
     return await hypothesisRun(p);
+  }
+});
+
+tools.push({
+  server: "ctgov",
+  name: "search_trials",
+  description: "Search ClinicalTrials.gov Study Fields API for trials",
+  inputSchema: {
+    type: "object",
+    properties: {
+      expr: { type: "string" },
+      status: { type: "array", items: { type: "string" } },
+      minRank: { type: "number" },
+      maxRank: { type: "number" },
+      fields: { type: "array", items: { type: "string" } }
+    },
+    required: ["expr"]
+  },
+  handler: async (args: any) => {
+    const rows = await searchTrialsCtgov(args as any);
+    // Return raw rows; your normalizer will convert to canonical records
+    return { rows };
   }
 });
 
