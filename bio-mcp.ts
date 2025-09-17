@@ -14,7 +14,7 @@
  * 5) ChatGPT → Settings → Connectors → Add → Developer Mode → Base URL: http://<host>:8788/mcp
  */
 
-
+import { registerGetWrapper } from './registerGetWrapper.js';
 import { HypothesisRun, hypothesisRun } from './hypothesis_orchestrator.js';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -1163,12 +1163,59 @@ app.post('/mcp', async (req, res) => {
     return res.status(500).json(err(null, -32603, 'Internal error', { message: e?.message }));
   }
 });
-
+registerGetWrapper(app, tools);
 // helper to convert Zod -> JSON Schema (simple inline)
 function zodToJsonSchema(schema: any) {
   // minimal: rely on Zod's introspection
   // For richer schemas, use `zod-to-json-schema` package.
   return schema._def ? { type: 'object' } : schema; // fallback
 }
+
+// ---- HTTP GET wrapper for tools ----
+// In addition to the JSON-RPC POST interface above, expose a REST-like GET API.
+// Example usage:
+//   /mcp/pubchem.compound.search?namespace=name&identifier=caffeine&max=10
+// All query parameters are passed to the tool's input schema. Numeric strings are
+// automatically converted to numbers; "true"/"false" to booleans; repeated parameters
+// become arrays. Any schema validation errors are returned as 400.
+app.get('/mcp/:toolName', async (req, res) => {
+  const { toolName } = req.params;
+  const tool = tools.find(t => t.name === toolName);
+  if (!tool) {
+    return res.status(404).json({ error: `Unknown tool: ${toolName}` });
+  }
+  // Build a raw argument object from the query string
+  const rawArgs: any = {};
+  for (const [key, value] of Object.entries(req.query)) {
+    if (Array.isArray(value)) {
+      // If multiple values for the same key, keep array of strings
+      rawArgs[key] = value.map(v => {
+        // Convert numeric-like strings in arrays
+        if (typeof v === 'string' && v !== '' && !isNaN(Number(v))) return Number(v);
+        if (v === 'true') return true;
+        if (v === 'false') return false;
+        return v;
+      });
+    } else if (typeof value === 'string') {
+      // Single value: attempt to coerce to number or boolean
+      if (value !== '' && !isNaN(Number(value))) {
+        rawArgs[key] = Number(value);
+      } else if (value === 'true') {
+        rawArgs[key] = true;
+      } else if (value === 'false') {
+        rawArgs[key] = false;
+      } else {
+        rawArgs[key] = value;
+      }
+    }
+  }
+  try {
+    const args = tool.inputSchema ? tool.inputSchema.parse(rawArgs) : rawArgs;
+    const result = await tool.handler(args);
+    return res.json(result);
+  } catch (err: any) {
+    return res.status(400).json({ error: err?.message || 'Invalid input' });
+  }
+});
 
 app.listen(PORT, () => console.log(`Bio MCP listening on http://localhost:${PORT}/mcp`));
