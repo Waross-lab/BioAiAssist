@@ -160,35 +160,41 @@ async function fetchLiterature(fetchFn, query) {
 }
 
 async function fetchTrials(fetchFn, expr) {
-  // Use JSON-RPC to call the search_trials tool. This avoids URL encoding issues.
-  const response = await fetchFn('http://localhost:8788/mcp', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'tools/call',
-      params: {
-        name: 'search_trials',
-        arguments: { expr, maxRank: 50 }
-      }
-    })
-  });
-  const json = await response.json();
-  const rows = json.result?.content?.rows || [];
-  // Convert each trial record to a consistent structure
-  return rows.map(row => ({
-    nctId: row.NCTId,
-    title: row.BriefTitle,
-    phase: row.Phase || null,
-    status: row.OverallStatus,
-    conditions: row.Condition,
-    interventions: row.Intervention
-      ? row.Intervention.map(i => i.InterventionName)
-      : [],
-    links: { ctgov: `https://clinicaltrials.gov/study/${row.NCTId}` },
-    source: 'ClinicalTrials.gov'
-  }));
+  const url = new URL('http://localhost:8788/mcp/search_trials');
+  url.searchParams.set('expr', expr);
+  url.searchParams.set('maxRank', '50');
+  const res = await fetchFn(url);
+  if (!res.ok) throw new Error(`search_trials failed: ${res.status}`);
+  const data = await res.json();
+  const studies = data && data.Studies && data.Studies.Study || [];
+  const results = [];
+  for (const study of studies) {
+    results.push({
+      nctId: study.NCTId,
+      title: study.BriefTitle,
+      phase: study.Phase || null,
+      status: study.OverallStatus,
+      conditions: study.Condition,
+      interventions: study.Intervention ? study.Intervention.map(i => i.InterventionName) : [],
+      links: {
+        ctgov: `https://clinicaltrials.gov/study/${study.NCTId}`,
+      },
+      source: 'ClinicalTrials.gov',
+    });
+  }
+  return results;
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const question = args.join(' ') || 'What percent of MGMT promoter methylation in GBM patients benefit from temozolomide (Temodar/TMZ)?';
+  try {
+    const bundle = await buildEvidenceBundle(question);
+    console.log(JSON.stringify(bundle, null, 2));
+  } catch (err) {
+    console.error('Error building bundle:', err);
+    process.exit(1);
+  }
 }
 
 async function buildEvidenceBundle(question) {
@@ -209,6 +215,9 @@ async function buildEvidenceBundle(question) {
   const geneInfo = {};
   geneResults.forEach((res, idx) => {
     const gene = genes[idx];
+    if (require.main === module) {
+  main();
+}
     if (res.status === 'fulfilled' && res.value) {
       geneInfo[gene] = res.value;
     }
@@ -239,18 +248,6 @@ async function buildEvidenceBundle(question) {
       executed_at: new Date().toISOString(),
     },
   };
-}
-
-async function main() {
-  const args = process.argv.slice(2);
-  const question = args.join(' ') || 'What percent of MGMT promoter methylation in GBM patients benefit from temozolomide (Temodar/TMZ)?';
-  try {
-    const bundle = await buildEvidenceBundle(question);
-    console.log(JSON.stringify(bundle, null, 2));
-  } catch (err) {
-    console.error('Error building bundle:', err);
-    process.exit(1);
-  }
 }
 
 if (require.main === module) {

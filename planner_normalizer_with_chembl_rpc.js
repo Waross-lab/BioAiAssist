@@ -247,6 +247,6 @@ async function main() {
   }
 }
 
-export { buildEvidenceBundle, main };
-// Optionally call main() here:
-main();
+if (require.main === module) {
+  main();
+}
