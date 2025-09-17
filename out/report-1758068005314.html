@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>BioAiAssist Report</title>
+<style>
+  body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 28px; color: #111; }
+  h1 { margin: 0 0 8px; }
+  .muted { color: #666; font-size: 12px; }
+  .section { margin-top: 24px; }
+  .chips { margin-top: 6px; }
+  .chips .h { font-weight: 600; margin-right: 6px; }
+  .chip { display: inline-block; padding: 2px 8px; border-radius: 999px; border: 1px solid #ddd; margin: 2px 4px 0 0; font-size: 12px; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+  .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px 14px; background: #fff; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th, td { border: 1px solid #e5e7eb; padding: 6px 8px; vertical-align: top; }
+  th { background: #f8fafc; text-align: left; }
+  ul { margin: 6px 0 0 18px; }
+  .kvs { display:flex; gap:12px; flex-wrap:wrap; font-size:12px; color:#333; }
+  .kvs div { background:#f8fafc; padding:6px 8px; border-radius:8px; border:1px solid #e5e7eb; }
+  .small { font-size: 12px; }
+</style>
+</head>
+<body>
+  <h1>BioAiAssist Report</h1>
+  <div class="muted">Query: <b>what percent of mgmt methylation in gbm patients benefit from temodar</b></div>
+
+  <div class="section">
+    <div class="kvs">
+      <div>Tool hits: <b>1</b></div>
+      <div>Failures: <b>0</b></div>
+    </div>
+  </div>
+
+  <div class="section grid">
+    <div class="card">
+      <h3>Slots</h3>
+      <div class="chips"><span class="h">Genes:</span> <span class="chip">WHAT</span> <span class="chip">PERCENT</span> <span class="chip">MGMT</span> <span class="chip">GBM</span> <span class="chip">BENEFIT</span> <span class="chip">FROM</span> <span class="chip">TEMODAR</span></div>
+      
+      <div class="chips"><span class="h">Diseases:</span> <span class="chip">glioblastoma</span></div>
+      <div class="chips"><span class="h">Drugs:</span> <span class="chip">temodar</span></div>
+      
+      
+    </div>
+
+    <div class="card">
+      <h3>Highlights</h3>
+      <ul></ul>
+      
+    </div>
+  </div>
+
+  <div class="section card">
+    <h3>Publications (top)</h3>
+    <table>
+      <thead><tr><th>Title</th><th>ID</th><th>Cutoff %</th><th>HR (95% CI)</th><th>Median OS (mo)</th><th>Median PFS (mo)</th></tr></thead>
+      <tbody><tr>
+      <td>Identifying the best treatment choice for relapsing/refractory glioblastoma: a systematic review with multiple Bayesian network meta-analyses.</td>
+      <td>PMID:39674575</td>
+      <td></td>
+      <td>0.5</td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Biomolecular Predictors of Recurrence Patterns and Survival in IDH-Wild-Type Glioblastoma: A Retrospective Analysis of Patients Treated with Radiotherapy and Temozolomide.</td>
+      <td>PMID:40722305</td>
+      <td></td>
+      <td>0.48</td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Efficacy of vaccination therapy in newly diagnosed and recurrent glioblastoma patients: a meta-analysis.</td>
+      <td>PMID:40597861</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Modified Target Delineation and Moderately Hypofractionated Radiotherapy for High-Grade Glioma: A Randomized Clinical Trial.</td>
+      <td>PMID:40705330</td>
+      <td></td>
+      <td>4</td>
+      <td>27</td>
+      <td>15.5</td>
+    </tr><tr>
+      <td>Timing Matters: Overall Treatment Time, Radiotherapy Interruptions, and Outcomes in glioblastomas – Prognostic Significance in Different Biological Sub- Groups</td>
+      <td>DOI:10.21203/rs.3.rs-7156531/v1</td>
+      <td></td>
+      <td>1.41</td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Cisplatin and Alternating Temozolomide in Recurrent High-Grade Gliomas: Efficacy and the Role of Tumor-Infiltrating Lymphocytes in a Phase II Clinical Trial.</td>
+      <td>PMID:40661859</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Immunotherapy in Glioblastoma: An Overview of Current Status.</td>
+      <td>PMID:40735070</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Predictive role of MGMT and IDH status in the efficacy of bevacizumab for high-grade glioma: a retrospective study.</td>
+      <td>PMID:40927528</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Unlocking glioblastoma: breakthroughs in molecular mechanisms and next-generation therapies.</td>
+      <td>PMID:40542948</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Unraveling epigenetic drivers of immune evasion in gliomas: mechanisms and therapeutic implications.</td>
+      <td>PMID:40927709</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Efficacy and Safety of Prolonged Adjuvant Temozolomide Treatment in Glioblastoma: Prospective Study of 81 Patients Undergoing up to 101 Cycles of Treatment.</td>
+      <td>PMID:40426599</td>
+      <td></td>
+      <td>18</td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>The clinical and molecular landscape of diffuse hemispheric glioma, H3 G34-mutant.</td>
+      <td>PMID:39842935</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Survival Impact of Isocitrate Dehydrogenase (IDH)-Wildtype Histological Versus Molecular Glioblastoma: A Propensity Score-Matched Analysis.</td>
+      <td>PMID:40861724</td>
+      <td></td>
+      <td></td>
+      <td>15.2</td>
+      <td></td>
+    </tr><tr>
+      <td>Long-term survival, patterns of progression, and patterns of use for patients with newly diagnosed glioblastoma treated with or without Tumor Treating Fields (TTFields) in a real-world setting.</td>
+      <td>PMID:40163248</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Bioinformatic and clinical experimental assay uncovers resistance and susceptibility mechanisms of human glioblastomas to temozolomide and identifies new combined and individual survival biomarkers outperforming &lt;i&gt;MGMT&lt;/i&gt; promoter methylation.</td>
+      <td>PMID:39525666</td>
+      <td></td>
+      <td>0.18</td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Peripheral biomarkers predict survival in patients with glioblastoma treated with temozolomide</td>
+      <td>PMC12046623</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>New approaches to overcome radioresistance in glioblastoma: mechanisms, targets and role of innovative therapies, new particles and non-photon radiotherapy in 2024. A systematic review.</td>
+      <td>PMID:40635989</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Canadian Expert Consensus Recommendations for the Diagnosis and Management of Glioblastoma: Results of a Delphi Study.</td>
+      <td>PMID:40277764</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Oligodendroglioma of the Hippocampus: A Case Report and Systematic Review on Therapeutic Approaches of Oligodendroglioma After WHO 2021 Classification.</td>
+      <td>PMID:40143126</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>Clinical value of the &amp;lt;i&amp;gt;MGMT&amp;lt;/i&amp;gt; promoter methylation score in IDHmt low-grade glioma for predicting benefit from temozolomide treatment.</td>
+      <td>PMID:40041202</td>
+      <td>95%</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <div class="section card">
+    <h3>Clinical Trials (top)</h3>
+    <table>
+      <thead><tr><th>NCT</th><th>Title</th><th>Status</th><th>Phase</th><th>Condition</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="section card">
+    <h3>Tools Run</h3>
+    <table>
+      <thead><tr><th>Server</th><th>Tool</th><th>OK</th><th>Elapsed (ms)</th></tr></thead>
+      <tbody>
+        <tr><td>europmc</td><td>search_publications</td><td>✔︎</td><td>1046</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 // src/integrations/encode_helpers.ts
-import { EncodeAdapter, EncodeQuery } from "../adapters/encode";
+import { EncodeAdapter, EncodeQuery } from "../adapters/encode.js";
 
 // Minimal shared shapes; align with your existing types if names differ.
 export interface TargetRow {

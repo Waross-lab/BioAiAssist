@@ -2,7 +2,7 @@
 // Wires ENCODE into your orchestrator using the helper functions.
 // Call this once during your fetch/normalize stages.
 
-import { makeEncodeQuery, fetchEncode, normalizeEncode, encodeRowMatchesOrganism } from "./encode_helpers";
+import { makeEncodeQuery, fetchEncode, normalizeEncode, encodeRowMatchesOrganism } from "./encode_helpers.js";
 
 export type TimedFn = <T = any>(
   source: "ENCODE",

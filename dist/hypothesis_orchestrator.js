@@ -178,7 +178,7 @@ function analyzeGeneric(normalized) {
         const p = num(a.pchembl_value);
         if (!tid || p == null)
             continue;
-        (byT[tid] || (byT[tid] = [])).push(p);
+        (byT[tid] ||= []).push(p);
     }
     const targetStats = Object.entries(byT).map(([t, arr]) => ({
         target_id: t, n: arr.length, pchembl_mean: mean(arr), pchembl_median: median(arr),

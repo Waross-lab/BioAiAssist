@@ -1,7 +1,8 @@
 // research_orchestrator.ts — clean rebuild (generic, organism-scoped)
 import { z } from 'zod';
 import { NormalizeEntitiesInput, normalizeEntities } from './stage2_normalization.js';
-import { makeEncodeQuery, fetchEncode, normalizeEncode, encodeRowMatchesOrganism } from "./src/integrations/encode_helpers"; // ENCODE helpers
+import { makeEncodeQuery, fetchEncode, normalizeEncode, encodeRowMatchesOrganism } from "./src/integrations/encode_helpers.js"; // ENCODE helpers
+
 
 type AnyObj = Record<string, any>;
 

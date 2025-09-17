@@ -7,6 +7,7 @@ function withTimeout<T>(p: Promise<T>, ms: number, msg: string): Promise<T> {
   return new Promise((resolve, reject) => {
     const t = setTimeout(() => reject(new Error(msg)), ms);
     p.then(v => { clearTimeout(t); resolve(v); }, e => { clearTimeout(t); reject(e); });
+    const DEFAULT_TIMEOUT_MS = Number(process.env.BIOAI_TOOL_TIMEOUT_MS ?? 45000); // was 20000
   });
 }
 

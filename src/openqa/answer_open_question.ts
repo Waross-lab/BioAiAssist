@@ -1,7 +1,8 @@
+// src/openqa/answer_open_question.ts
 import { planFromQuery } from "./planner.js";
 import { runPlan } from "./runner.js";
-import { renderAnswer } from "./normalize_and_report.js";
-import type { McpToolMeta, McpClient } from "./types.js";
+import { renderAnswerCard } from "./normalize_and_report.js";
+import type { McpToolMeta, McpClient, QueryPlan } from "./types.js";
 
 export async function answerOpenQuestion(
   userQuery: string,
@@ -13,11 +14,14 @@ export async function answerOpenQuestion(
   }: {
     discoverTools: () => Promise<McpToolMeta[]>,
     mcpClients: Record<string, McpClient>,
-    llmPlanner?: (q: string, toolsJson: any) => Promise<{ rationale: string; calls: any[] } | null>,
+    llmPlanner?: (q: string, toolsJson: any) => Promise<QueryPlan | null>,
     concurrency?: number,
   }
 ) {
   const plan = await planFromQuery(userQuery, discoverTools, llmPlanner);
   const results = await runPlan(plan, mcpClients, { concurrency });
-  return renderAnswer(userQuery, results);
+
+  // NEW: rich card + keep legacy summary for compatibility
+  const { card, legacy } = renderAnswerCard(userQuery, results);
+  return { ...legacy, answerCard: card, plan };
 }
