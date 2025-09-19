@@ -203,8 +203,6 @@ cd into the repo first, or use an absolute path to smoke_openqa.mjs.
 
 📜 License
 
-Copyright © 2025 Waross-Lab
-
 Use of External Data
 BioAiAssist queries and retrieves data from publicly available biology databases, including but not limited to PubMed, PubChem, BLAST, UniProt, and similar resources. All retrieved raw data remains the intellectual property of the respective database providers and is subject to their Terms of Service and applicable licenses. BioAiAssist does not claim ownership of this external data.
 
